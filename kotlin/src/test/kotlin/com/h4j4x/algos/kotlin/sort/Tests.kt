@@ -15,10 +15,13 @@ class Tests {
     fun testCountingSort() = testSort(Counting(), 0, 100, 1000)
 
     @TestFactory
-    fun testHeapSort() = testSort(Heap(), minMillisTimeout = 25, maxMillisTimeout = 250)
+    fun testHeapSort() = testSort(Heap(), maxMillisTimeout = 250)
 
     @TestFactory
-    fun testMergeSort() = testSort(Merge(), minMillisTimeout = 25, maxMillisTimeout = 250)
+    fun testMergeSort() = testSort(Merge(), maxMillisTimeout = 200)
+
+    @TestFactory
+    fun testQuickSort() = testSort(Quick(), maxMillisTimeout = 100)
 
     private fun testSort(
         sorter: Sorter, min: Int = Int.MIN_VALUE,
