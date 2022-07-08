@@ -17,6 +17,9 @@ class Tests {
     @TestFactory
     fun testHeapSort() = testSort(Heap(), minMillisTimeout = 25, maxMillisTimeout = 250)
 
+    @TestFactory
+    fun testMergeSort() = testSort(Merge(), minMillisTimeout = 25, maxMillisTimeout = 250)
+
     private fun testSort(
         sorter: Sorter, min: Int = Int.MIN_VALUE,
         max: Int = Int.MAX_VALUE, bigMax: Int = Int.MAX_VALUE,
