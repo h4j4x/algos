@@ -3,6 +3,8 @@ package com.h4j4x.algos.kotlin.sort
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
+import org.junit.jupiter.api.assertTimeout
+import java.time.Duration
 import java.util.*
 import kotlin.random.Random
 
@@ -12,7 +14,14 @@ class Tests {
     @TestFactory
     fun testCountingSort() = testSort(Counting(), 0, 100, 1000)
 
-    private fun testSort(sorter: Sorter, min: Int, max: Int, bigMax: Int): Collection<DynamicTest> {
+    @TestFactory
+    fun testHeapSort() = testSort(Heap(), minMillisTimeout = 25, maxMillisTimeout = 250)
+
+    private fun testSort(
+        sorter: Sorter, min: Int = Int.MIN_VALUE,
+        max: Int = Int.MAX_VALUE, bigMax: Int = Int.MAX_VALUE,
+        minMillisTimeout: Long = 20, maxMillisTimeout: Long = 25
+    ): Collection<DynamicTest> {
         val results = mutableListOf<DynamicTest>()
         val title = "Test ${sorter.name()} sort"
         for (i in 2..99) {
@@ -20,7 +29,7 @@ class Tests {
             val expected = arr.copyOf()
             Arrays.sort(expected)
             results.add(DynamicTest.dynamicTest("$title $i") {
-                sorter.sort(arr)
+                assertTimeout(Duration.ofMillis(minMillisTimeout)) { sorter.sort(arr) }
                 Assertions.assertArrayEquals(expected, arr)
             })
         }
@@ -30,7 +39,7 @@ class Tests {
             val expected = arr.copyOf()
             Arrays.sort(expected)
             results.add(DynamicTest.dynamicTest("$title $i") {
-                sorter.sort(arr)
+                assertTimeout(Duration.ofMillis(maxMillisTimeout)) { sorter.sort(arr) }
                 Assertions.assertArrayEquals(expected, arr)
             })
             i += 10_000
