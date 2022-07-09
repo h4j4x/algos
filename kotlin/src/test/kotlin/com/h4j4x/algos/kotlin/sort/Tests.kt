@@ -21,7 +21,7 @@ class Tests {
     fun testMergeSort() = testSort(Merge(), maxMillisTimeout = 200)
 
     @TestFactory
-    fun testQuickSort() = testSort(Quick(), maxMillisTimeout = 100)
+    fun testQuickSort() = testSort(Quick(), maxMillisTimeout = 150)
 
     private fun testSort(
         sorter: Sorter, min: Int = Int.MIN_VALUE,
