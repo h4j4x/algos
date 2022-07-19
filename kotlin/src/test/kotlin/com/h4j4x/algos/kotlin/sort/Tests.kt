@@ -15,18 +15,18 @@ class Tests {
     fun testCountingSort() = testSort(Counting(), 0, 100, 1000)
 
     @TestFactory
-    fun testHeapSort() = testSort(Heap(), maxMillisTimeout = 250)
+    fun testHeapSort() = testSort(Heap(), maxMillisTimeout = 300)
 
     @TestFactory
-    fun testMergeSort() = testSort(Merge(), maxMillisTimeout = 200)
+    fun testMergeSort() = testSort(Merge(), maxMillisTimeout = 300)
 
     @TestFactory
-    fun testQuickSort() = testSort(Quick(), maxMillisTimeout = 150)
+    fun testQuickSort() = testSort(Quick(), maxMillisTimeout = 200)
 
     private fun testSort(
         sorter: Sorter, min: Int = Int.MIN_VALUE,
         max: Int = Int.MAX_VALUE, bigMax: Int = Int.MAX_VALUE,
-        minMillisTimeout: Long = 20, maxMillisTimeout: Long = 25
+        minMillisTimeout: Long = 30, maxMillisTimeout: Long = 35
     ): Collection<DynamicTest> {
         val results = mutableListOf<DynamicTest>()
         val title = "Test ${sorter.name()} sort"

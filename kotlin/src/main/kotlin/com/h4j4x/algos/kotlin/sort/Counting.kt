@@ -13,7 +13,7 @@ class Counting : Sorter {
             countArr[index] += countArr[index - 1]
         }
         val copyArr = arr.copyOf()
-        for (index in copyArr.lastIndex downTo 0) {
+        for (index in copyArr.indices) {
             arr[countArr[copyArr[index]] - 1] = copyArr[index]
             countArr[copyArr[index]] -= 1
         }
