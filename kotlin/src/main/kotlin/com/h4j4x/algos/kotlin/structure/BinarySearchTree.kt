@@ -1,16 +1,22 @@
 package com.h4j4x.algos.kotlin.structure
 
-class BinarySearchTree<T : Comparable<T>>(var root: BinaryTreeNode<T>? = null) {
+class BinarySearchTree<T : Comparable<T>>(private var root: BinaryTreeNode<T>? = null) {
+    constructor(value: T) : this(BinaryTreeNode(value))
+
+    fun addAll(vararg values: T) {
+        values.sorted().forEach { add(it) }
+    }
+
     fun add(value: T) {
         if (root == null) {
             root = BinaryTreeNode(value)
             return
         }
         var node = root
-        var parent: BinaryTreeNode<T> = root!!
+        lateinit var parent: BinaryTreeNode<T>
         while (node != null) {
             parent = node
-            node = if (parent.key < node.key) {
+            node = if (value < node.key) {
                 node.left
             } else {
                 node.right
@@ -30,17 +36,15 @@ class BinarySearchTree<T : Comparable<T>>(var root: BinaryTreeNode<T>? = null) {
         } else if (node.right == null) {
             transplant(node, node.left)
         } else {
-            val rightMinNode = min(node.right)
-            if (rightMinNode != null && rightMinNode != node.right) {
-                transplant(rightMinNode, rightMinNode.right)
-                rightMinNode.right = node.right
-                rightMinNode.right?.parent = rightMinNode
+            val next = successor(node.key)!!
+            if (next != node.right) {
+                transplant(next, next.right)
+                next.right = node.right
+                next.right?.parent = next
             }
-            transplant(node, rightMinNode)
-            if (rightMinNode != null) {
-                rightMinNode.left = node.left
-                rightMinNode.left?.parent = rightMinNode
-            }
+            transplant(node, next)
+            next.left = node.left
+            next.left?.parent = next
         }
     }
 
@@ -114,7 +118,7 @@ class BinarySearchTree<T : Comparable<T>>(var root: BinaryTreeNode<T>? = null) {
     private fun next(from: BinaryTreeNode<T>, supplier: (BinaryTreeNode<T>) -> BinaryTreeNode<T>?): BinaryTreeNode<T>? {
         var parent = from.parent
         var node = from
-        while (parent != null && node != supplier(parent)) {
+        while (parent != null && supplier(parent) != null && node != supplier(parent)) {
             node = parent
             parent = node.parent
         }
@@ -128,6 +132,10 @@ class BinarySearchTree<T : Comparable<T>>(var root: BinaryTreeNode<T>? = null) {
             inOrderTreeWalk(node.right, visitor)
         }
     }
+
+    fun clear() {
+        root = null
+    }
 }
 
 class BinaryTreeNode<T>(
@@ -136,6 +144,11 @@ class BinaryTreeNode<T>(
     var left: BinaryTreeNode<T>? = null,
     var right: BinaryTreeNode<T>? = null,
 ) {
+
+    override fun toString(): String {
+        return "BTNode($key)"
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

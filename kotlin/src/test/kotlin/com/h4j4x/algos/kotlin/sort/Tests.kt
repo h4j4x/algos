@@ -1,6 +1,6 @@
 package com.h4j4x.algos.kotlin.sort
 
-import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
 import org.junit.jupiter.api.assertTimeout
@@ -36,7 +36,7 @@ class Tests {
             Arrays.sort(expected)
             results.add(DynamicTest.dynamicTest("$title $i") {
                 assertTimeout(Duration.ofMillis(minMillisTimeout)) { sorter.sort(arr) }
-                Assertions.assertArrayEquals(expected, arr)
+                assertArrayEquals(expected, arr)
             })
         }
         var i = 10_000
@@ -46,7 +46,7 @@ class Tests {
             Arrays.sort(expected)
             results.add(DynamicTest.dynamicTest("$title $i") {
                 assertTimeout(Duration.ofMillis(maxMillisTimeout)) { sorter.sort(arr) }
-                Assertions.assertArrayEquals(expected, arr)
+                assertArrayEquals(expected, arr)
             })
             i += 10_000
         }
