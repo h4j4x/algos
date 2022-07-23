@@ -7,15 +7,15 @@ class Counting : Sorter {
         val max = arr.maxBy { it }
         val countArr = IntArray(max + 1)
         for (value in arr) {
-            countArr[value] += 1
+            countArr[value]++
         }
-        for (index in 1 until countArr.size) {
+        for (index in 1..countArr.lastIndex) {
             countArr[index] += countArr[index - 1]
         }
-        val copyArr = arr.copyOf()
-        for (index in copyArr.indices) {
-            arr[countArr[copyArr[index]] - 1] = copyArr[index]
-            countArr[copyArr[index]] -= 1
+        val unsortedArr = arr.copyOf()
+        for (value in unsortedArr) {
+            arr[countArr[value] - 1] = value
+            countArr[value]--
         }
     }
 }

@@ -4,10 +4,11 @@ class Heap : Sorter {
     override fun name() = "HEAP"
 
     override fun sort(arr: IntArray) {
-        for (index in arr.size / 2 - 1 downTo 0) {
-            heapMaxArray(arr, index, arr.size)
+        val len = arr.size
+        for (index in len / 2 - 1 downTo 0) {
+            heapMaxArray(arr, index, len)
         }
-        for (index in arr.size - 1 downTo 1) {
+        for (index in len - 1 downTo 1) {
             swap(arr, 0, index)
             heapMaxArray(arr, 0, index)
         }
@@ -15,13 +16,13 @@ class Heap : Sorter {
 
     private fun heapMaxArray(arr: IntArray, index: Int, toIndex: Int) {
         var maxIndex = index
-        val leftIndex = index * 2 + 1
-        val rightIndex = index * 2 + 2
-        if (leftIndex < toIndex && arr[leftIndex] > arr[maxIndex]) {
-            maxIndex = leftIndex
+        val leftChildIndex = index * 2 + 1
+        if (leftChildIndex < toIndex && arr[leftChildIndex] > arr[maxIndex]) {
+            maxIndex = leftChildIndex
         }
-        if (rightIndex < toIndex && arr[rightIndex] > arr[maxIndex]) {
-            maxIndex = rightIndex
+        val rightChildIndex = index * 2 + 2
+        if (rightChildIndex < toIndex && arr[rightChildIndex] > arr[maxIndex]) {
+            maxIndex = rightChildIndex
         }
         if (maxIndex != index) {
             swap(arr, maxIndex, index)

@@ -19,10 +19,11 @@ class Quick : Sorter {
         var pivot = from
         for (index in from until to - 1) {
             if (arr[index] < arr[to - 1]) {
-                swap(arr, index, pivot++)
+                swap(arr, index, pivot)
+                pivot++
             }
         }
-        swap(arr, pivot, to - 1)
+        swap(arr, to - 1, pivot)
         return pivot
     }
 

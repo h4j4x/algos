@@ -17,23 +17,23 @@ class Merge : Sorter {
     }
 
     private fun merge(arr: IntArray, from: Int, mid: Int, to: Int) {
-        val leftArray = arr.copyOfRange(from, mid)
-        val rightArray = arr.copyOfRange(mid, to)
-        var index = from
+        val leftArr = arr.copyOfRange(from, mid)
+        val rightArr = arr.copyOfRange(mid, to)
+        var arrIndex = from
         var leftIndex = 0
         var rightIndex = 0
-        while (leftIndex < leftArray.size && rightIndex < rightArray.size) {
-            if (leftArray[leftIndex] < rightArray[rightIndex]) {
-                arr[index++] = leftArray[leftIndex++]
+        while (leftIndex < leftArr.size && rightIndex < rightArr.size) {
+            if (leftArr[leftIndex] < rightArr[rightIndex]) {
+                arr[arrIndex++] = leftArr[leftIndex++]
             } else {
-                arr[index++] = rightArray[rightIndex++]
+                arr[arrIndex++] = rightArr[rightIndex++]
             }
         }
-        while (leftIndex < leftArray.size) {
-            arr[index++] = leftArray[leftIndex++]
+        while (leftIndex < leftArr.size) {
+            arr[arrIndex++] = leftArr[leftIndex++]
         }
-        while (rightIndex < rightArray.size) {
-            arr[index++] = rightArray[rightIndex++]
+        while (rightIndex < rightArr.size) {
+            arr[arrIndex++] = rightArr[rightIndex++]
         }
     }
 }
