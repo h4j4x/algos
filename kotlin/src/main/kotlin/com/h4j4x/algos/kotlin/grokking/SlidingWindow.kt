@@ -1,6 +1,6 @@
 package com.h4j4x.algos.kotlin.grokking
 
-object SubArray {
+object SlidingWindow {
     fun smallestSubarrayWithGreaterSum(arr: IntArray, sum: Int): IntArray {
         var maxFrom = 0
         var maxTo = arr.size
@@ -42,5 +42,20 @@ object SubArray {
             }
         }
         return str.substring(maxFrom, maxTo + 1)
+    }
+
+    fun noRepeatSubstring(str: String): String {
+        var maxSubStr = ""
+        var subStr = ""
+        for (char in str.toCharArray()) {
+            while (subStr.contains(char)) {
+                subStr = subStr.substring(1)
+            }
+            subStr += char
+            if (subStr.length >= maxSubStr.length) {
+                maxSubStr = subStr
+            }
+        }
+        return maxSubStr
     }
 }
